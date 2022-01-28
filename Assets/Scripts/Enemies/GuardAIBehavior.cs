@@ -5,10 +5,18 @@ using UnityEngine.Events;
 
 public class GuardAIBehavior : MonoBehaviour
 {
-    //[Header("Events")]
-    //[Space]
+    public enum GuardBehaviorState { 
+        Patrolling,
 
-    public 
+    }
+    
+    [Header("Events")]
+    [Space]
+
+    public UnityEvent onPlayerSpotted;
+    public UnityEvent onPlayerLost;
+    
+
     // Start is called before the first frame update
     void Start()
     {
