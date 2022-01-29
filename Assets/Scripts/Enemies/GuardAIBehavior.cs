@@ -18,6 +18,15 @@ public class GuardAIBehavior : MonoBehaviour
 
     Transform destination;
 
+    private GameObject player;
+    private bool playerInVision;
+    private float searchingRange = 5f;
+    private float chasingRange = 8f;
+    /** Empty transform child of guard. Set in inspector. Used for tracking the target during investigation phase */
+    [SerializeField] private Transform investigationTarget;
+    /** True when guard is looking back and forth after searching */
+    private bool looking = false;
+
     public enum GuardBehaviorState { 
         Patrolling,
         Investigating,
@@ -54,7 +63,85 @@ public class GuardAIBehavior : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        switch(currentBehaviorState)
+        {
+            case GuardBehaviorState.Patrolling:
+                //loop throught patrol points
+                float distanceFromDestination = Mathf.Abs(destination.position.x - guardTransform.position.x);
 
+                if (!atPatrolPoint && distanceFromDestination <= patrolRadius)
+                {
+                    atPatrolPoint = true;
+                    //Debug.Log("Arrived!");
+                    waitTimer = 0;
+                }
+                if (atPatrolPoint && (waitTimer > maxWaitTime))
+                {
+
+                    atPatrolPoint = false;
+                    patrolIndex = (patrolIndex + 1) % PatrolPoints.Count;
+                    destination = PatrolPoints[patrolIndex];
+                    //Debug.Log(destination);
+                }
+                else if (atPatrolPoint)
+                {
+                    waitTimer += Time.fixedDeltaTime;
+                }
+                break;
+            case GuardBehaviorState.Investigating:
+                if (playerInVision)
+                {
+                    float distanceFromPlayer = (this.transform.position - player.transform.position).magnitude;
+                    if (distanceFromPlayer <= searchingRange)
+                    {
+                        currentBehaviorState = GuardBehaviorState.Chasing;
+                    } else
+                    {
+                        destination = investigationTarget;
+                    }
+                } else
+                {
+                    currentBehaviorState = GuardBehaviorState.Searching;
+                }
+                break;
+            case GuardBehaviorState.Searching:
+                if (!looking)
+                {
+                    if ((this.transform.position - investigationTarget.position).magnitude < 1f)
+                    {
+                        StartCoroutine(Look());
+                    }
+                    else
+                    {
+                        destination = investigationTarget;
+                    }
+                }
+                break;
+            case GuardBehaviorState.Chasing:
+                if ((this.transform.position - player.transform.position).magnitude <= chasingRange)
+                {
+                    investigationTarget.position = player.transform.position;
+                    destination = investigationTarget;
+                } else
+                {
+                    currentBehaviorState = GuardBehaviorState.Searching;
+                }
+                break;
+            default:
+                break;
+        }
+
+        IEnumerator Look()
+        {
+            looking = true;
+            yield return new WaitForSeconds(1f);
+            guardController.Flip();
+            yield return new WaitForSeconds(1f);
+            guardController.Flip();
+            currentBehaviorState = GuardBehaviorState.Patrolling;
+            looking = false;
+        }
+        /**
         if (currentBehaviorState == GuardBehaviorState.Patrolling) {
             //loop throught patrol points
             float distanceFromDestination = Mathf.Abs(destination.position.x - guardTransform.position.x);
@@ -78,11 +165,38 @@ public class GuardAIBehavior : MonoBehaviour
                 waitTimer += Time.fixedDeltaTime;
             }
         }
+        */
         if (!atPatrolPoint) {
             //Debug.Log(guardTransform.position);
             float direction = Mathf.Clamp(destination.position.x - guardTransform.position.x, -1, 1);
             bool isRunning = currentMovementState == GuardMovementState.Running;
-            guardController.Move(direction, false, isRunning, false, false);
+            guardController.Move(direction, false, isRunning, false, false, false);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.layer == 7)
+        {
+            player = col.gameObject;
+            playerInVision = true;
+            float distance = (transform.position - col.transform.position).magnitude;
+            if (distance > searchingRange)
+            {
+                investigationTarget.position = player.transform.position;
+                currentBehaviorState = GuardBehaviorState.Investigating;
+            } else
+            {
+                currentBehaviorState = GuardBehaviorState.Searching;
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.layer == 7)
+        {
+            playerInVision = false;
         }
     }
 }
