@@ -688,7 +688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4b1644edbc8a0844a970dce3fa1eb50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_JumpForce: 400
+  m_JumpForce: 1500
   m_CrouchSpeed: 0.5
   m_SprintSpeed: 2
   m_MovementSmoothing: 0.05
@@ -725,7 +725,7 @@ MonoBehaviour:
   grav: 7
   walkSpeed: 70
   isHoldingJump: 0
-  maxHoldJumpTime: 0.4
+  maxHoldJumpTime: 0.1
   holdJumpTimer: 0
   crouchTapTime: 0.2
   platformTag: 
@@ -1406,7 +1406,7 @@ Transform:
   m_GameObject: {fileID: 1906896658}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.8566, y: -31.2847, z: 0}
-  m_LocalScale: {x: 25.996475, y: 3.291088, z: 1}
+  m_LocalScale: {x: 102.03616, y: 3.291088, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
