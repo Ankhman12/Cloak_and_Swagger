@@ -20,7 +20,8 @@ public class GuardAIBehavior : MonoBehaviour
 
     private GameObject player;
     private bool playerInVision;
-    private float searchingRange = 5f;
+    private float attackRange = 5f;
+    // Instead of changing the vision cone to a square, we could use this to just have a circular radius around the guard in which he will continue chasing the player.
     private float chasingRange = 8f;
     /** Empty transform child of guard. Set in inspector. Used for tracking the target during investigation phase */
     [SerializeField] private Transform investigationTarget;
@@ -92,7 +93,7 @@ public class GuardAIBehavior : MonoBehaviour
                 if (playerInVision)
                 {
                     float distanceFromPlayer = (this.transform.position - player.transform.position).magnitude;
-                    if (distanceFromPlayer <= searchingRange)
+                    if (distanceFromPlayer <= attackRange)
                     {
                         currentBehaviorState = GuardBehaviorState.Chasing;
                     } else
@@ -107,7 +108,7 @@ public class GuardAIBehavior : MonoBehaviour
             case GuardBehaviorState.Searching:
                 if (!looking)
                 {
-                    if ((this.transform.position - investigationTarget.position).magnitude < 1f)
+                    if ((this.transform.position - investigationTarget.position).magnitude < 1f) //1f is a number that is supposed to be "close enough" to destination
                     {
                         StartCoroutine(Look());
                     }
@@ -181,13 +182,13 @@ public class GuardAIBehavior : MonoBehaviour
             player = col.gameObject;
             playerInVision = true;
             float distance = (transform.position - col.transform.position).magnitude;
-            if (distance > searchingRange)
+            if (distance > attackRange)
             {
                 investigationTarget.position = player.transform.position;
                 currentBehaviorState = GuardBehaviorState.Investigating;
             } else
             {
-                currentBehaviorState = GuardBehaviorState.Searching;
+                currentBehaviorState = GuardBehaviorState.Chasing;
             }
         }
     }
