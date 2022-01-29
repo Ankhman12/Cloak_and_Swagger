@@ -62,6 +62,15 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""4c10a054-e08d-4e7d-b4eb-60f77e4714f5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -141,6 +150,17 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""959638a9-dd0a-4b55-aaf3-f9dba0d20877"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -153,6 +173,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         m_OperatorActionMap_Crouch = m_OperatorActionMap.FindAction("Crouch", throwIfNotFound: true);
         m_OperatorActionMap_Sprint = m_OperatorActionMap.FindAction("Sprint", throwIfNotFound: true);
         m_OperatorActionMap_Movement = m_OperatorActionMap.FindAction("Movement", throwIfNotFound: true);
+        m_OperatorActionMap_Interact = m_OperatorActionMap.FindAction("Interact", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -216,6 +237,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     private readonly InputAction m_OperatorActionMap_Crouch;
     private readonly InputAction m_OperatorActionMap_Sprint;
     private readonly InputAction m_OperatorActionMap_Movement;
+    private readonly InputAction m_OperatorActionMap_Interact;
     public struct OperatorActionMapActions
     {
         private @Controls m_Wrapper;
@@ -224,6 +246,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         public InputAction @Crouch => m_Wrapper.m_OperatorActionMap_Crouch;
         public InputAction @Sprint => m_Wrapper.m_OperatorActionMap_Sprint;
         public InputAction @Movement => m_Wrapper.m_OperatorActionMap_Movement;
+        public InputAction @Interact => m_Wrapper.m_OperatorActionMap_Interact;
         public InputActionMap Get() { return m_Wrapper.m_OperatorActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -245,6 +268,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Movement.started -= m_Wrapper.m_OperatorActionMapActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_OperatorActionMapActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_OperatorActionMapActionsCallbackInterface.OnMovement;
+                @Interact.started -= m_Wrapper.m_OperatorActionMapActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_OperatorActionMapActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_OperatorActionMapActionsCallbackInterface.OnInteract;
             }
             m_Wrapper.m_OperatorActionMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -261,6 +287,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
             }
         }
     }
@@ -271,5 +300,6 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         void OnCrouch(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
 }
