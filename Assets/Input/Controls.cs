@@ -71,6 +71,15 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Grapple"",
+                    ""type"": ""Button"",
+                    ""id"": ""bca4561d-36aa-4b84-8298-3365d5882479"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -161,6 +170,17 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""af4630f7-4538-4c6a-85d2-0878ac26ae93"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grapple"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -174,6 +194,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         m_OperatorActionMap_Sprint = m_OperatorActionMap.FindAction("Sprint", throwIfNotFound: true);
         m_OperatorActionMap_Movement = m_OperatorActionMap.FindAction("Movement", throwIfNotFound: true);
         m_OperatorActionMap_Interact = m_OperatorActionMap.FindAction("Interact", throwIfNotFound: true);
+        m_OperatorActionMap_Grapple = m_OperatorActionMap.FindAction("Grapple", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -238,6 +259,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     private readonly InputAction m_OperatorActionMap_Sprint;
     private readonly InputAction m_OperatorActionMap_Movement;
     private readonly InputAction m_OperatorActionMap_Interact;
+    private readonly InputAction m_OperatorActionMap_Grapple;
     public struct OperatorActionMapActions
     {
         private @Controls m_Wrapper;
@@ -247,6 +269,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         public InputAction @Sprint => m_Wrapper.m_OperatorActionMap_Sprint;
         public InputAction @Movement => m_Wrapper.m_OperatorActionMap_Movement;
         public InputAction @Interact => m_Wrapper.m_OperatorActionMap_Interact;
+        public InputAction @Grapple => m_Wrapper.m_OperatorActionMap_Grapple;
         public InputActionMap Get() { return m_Wrapper.m_OperatorActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -271,6 +294,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Interact.started -= m_Wrapper.m_OperatorActionMapActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_OperatorActionMapActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_OperatorActionMapActionsCallbackInterface.OnInteract;
+                @Grapple.started -= m_Wrapper.m_OperatorActionMapActionsCallbackInterface.OnGrapple;
+                @Grapple.performed -= m_Wrapper.m_OperatorActionMapActionsCallbackInterface.OnGrapple;
+                @Grapple.canceled -= m_Wrapper.m_OperatorActionMapActionsCallbackInterface.OnGrapple;
             }
             m_Wrapper.m_OperatorActionMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -290,6 +316,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Grapple.started += instance.OnGrapple;
+                @Grapple.performed += instance.OnGrapple;
+                @Grapple.canceled += instance.OnGrapple;
             }
         }
     }
@@ -301,5 +330,6 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         void OnSprint(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnGrapple(InputAction.CallbackContext context);
     }
 }
