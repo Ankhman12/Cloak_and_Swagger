@@ -37,12 +37,16 @@ public class HidingPlace : MonoBehaviour
             player = collision.gameObject;
             touchingPlayer = true;
         }
+        Debug.Log("I hit: " + collision.gameObject);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        spriteRenderer.color = defaultColor;
-        touchingPlayer = false;
+        if (other.tag != null && other.tag == "Player") {
+            spriteRenderer.color = defaultColor;
+            touchingPlayer = false;   
+        }
+        Debug.Log(other.gameObject + " left my trigger");
     }
 
     public void HidePlayer(CallbackContext ctx)

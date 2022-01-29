@@ -251,7 +251,7 @@ GameObject:
   - component: {fileID: 3366679346278227046}
   - component: {fileID: 3366679346278227065}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: VisionCone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -296,9 +296,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -1.703743, y: 1.2617197}
-      - {x: -1.6489753, y: -0.8148377}
-      - {x: -0.62883925, y: -0.6242732}
+    - - {x: -17.553076, y: 7.57625}
+      - {x: -17.53765, y: -0.6805601}
+      - {x: -1.2755215, y: -0.33619606}
+      - {x: -0.69558567, y: -0.32391536}
       - {x: 0.9367448, y: -0.27018243}
       - {x: 0.9510565, y: 0.30901712}
 --- !u!1 &3366679346317773348

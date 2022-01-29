@@ -180,14 +180,20 @@ public class GuardAIBehavior : MonoBehaviour
         if (col.gameObject.layer == 7)
         {
             player = col.gameObject;
-            playerInVision = true;
+            bool isHiding = player.GetComponent<PlayerMovement>().isHiding;
             float distance = (transform.position - col.transform.position).magnitude;
-            if (distance > attackRange)
+            if (isHiding) {
+                playerInVision = false;
+            }
+            else if (distance > attackRange)
             {
+                playerInVision = true;
                 investigationTarget.position = player.transform.position;
                 currentBehaviorState = GuardBehaviorState.Investigating;
-            } else
+            } 
+            else
             {
+                playerInVision = true;
                 currentBehaviorState = GuardBehaviorState.Chasing;
             }
         }
