@@ -80,7 +80,6 @@ public class CharacterController2D : MonoBehaviour
 			if (col != null)
 			{
 				//currentCeilingObject = col.gameObject;
-
 				if (!crouch && m_Grounded)
 				{
 					crouch = true;
