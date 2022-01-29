@@ -21,6 +21,7 @@ public class HidingPlace : MonoBehaviour
         interaction.OperatorActionMap.Interact.performed += HidePlayer;
         interaction.OperatorActionMap.Interact.Enable();
         spriteRenderer = this.GetComponent<SpriteRenderer>();
+        spriteRenderer.sortingOrder = -1;
         highlightColor = new Color(1, 1, 0, .5f);
         defaultColor = spriteRenderer.color;
     }
@@ -56,6 +57,7 @@ public class HidingPlace : MonoBehaviour
                 hidingPlayer = true;
                 player.GetComponent<PlayerMovement>().isHiding = true;
                 spriteRenderer.color = defaultColor;
+                player.GetComponent<SpriteRenderer>().sortingOrder = -2;
                 //player.GetComponent<PlayerMovement>().enabled = false;
                 player.GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
                 player.transform.position = hidingLocation.position;
@@ -69,6 +71,7 @@ public class HidingPlace : MonoBehaviour
     {
         hidingPlayer = false;
         player.GetComponent<PlayerMovement>().isHiding = false;
+        player.GetComponent<SpriteRenderer>().sortingOrder = 0;
         spriteRenderer.color = highlightColor;
         //player.GetComponent<PlayerMovement>().enabled = true;
     }
