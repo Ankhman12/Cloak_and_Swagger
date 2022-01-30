@@ -71,9 +71,7 @@ public class CharacterController2D : MonoBehaviour
 	public void Move(float move, bool crouch, bool sprint, bool jump, bool wasJumping, bool isHiding)
 	{
 		if (!isHiding)
-		{
-
-
+		{ 
 			// If crouching, check to see if the character can stand up
 			// If the character has a ceiling preventing them from standing up, keep them crouching
 			Collider2D col = Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround);
