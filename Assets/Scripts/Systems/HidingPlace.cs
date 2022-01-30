@@ -37,7 +37,7 @@ public class HidingPlace : MonoBehaviour
             player = collision.gameObject;
             touchingPlayer = true;
         }
-        Debug.Log("I hit: " + collision.gameObject);
+        //Debug.Log("I hit: " + collision.gameObject);
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -46,7 +46,7 @@ public class HidingPlace : MonoBehaviour
             spriteRenderer.color = defaultColor;
             touchingPlayer = false;   
         }
-        Debug.Log(other.gameObject + " left my trigger");
+        //Debug.Log(other.gameObject + " left my trigger");
     }
 
     public void HidePlayer(CallbackContext ctx)
@@ -65,6 +65,7 @@ public class HidingPlace : MonoBehaviour
                 //player.GetComponent<PlayerMovement>().enabled = false;
                 player.GetComponent<Rigidbody2D>().velocity = new Vector3(0, 0, 0);
                 player.transform.position = hidingLocation.position;
+                Physics2D.IgnoreLayerCollision(7, 8, true);
             }
             
         } 
@@ -77,6 +78,7 @@ public class HidingPlace : MonoBehaviour
         player.GetComponent<PlayerMovement>().isHiding = false;
         player.GetComponent<SpriteRenderer>().sortingOrder = 0;
         spriteRenderer.color = highlightColor;
+        Physics2D.IgnoreLayerCollision(7, 8, false);
         //player.GetComponent<PlayerMovement>().enabled = true;
     }
 }
