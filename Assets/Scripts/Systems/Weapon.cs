@@ -10,7 +10,7 @@ public class Weapon : MonoBehaviour
     public float weaponRange;
     public ParticleSystem muzzleFlash;
     public Transform firePoint;
-    
+
 
     Controls weaponControl;
 
@@ -25,7 +25,7 @@ public class Weapon : MonoBehaviour
 
     //Position around which the weapon rotates
     public Transform parentPos;
- 
+
 
     // Start is called before the first frame update
     void Start()
@@ -82,7 +82,7 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    void Shoot(CallbackContext ctx) 
+    void Shoot(CallbackContext ctx)
     {
         if (isAiming)
         {
@@ -93,7 +93,8 @@ public class Weapon : MonoBehaviour
 
             RaycastHit2D hit = Physics2D.Raycast(firePoint.position, -firePoint.up, weaponRange);
             //Debug.DrawRay(firePoint.position, -firePoint.up * weaponRange, Color.yellow, 1f);
-            if (hit && hit.collider != null && hit.collider.gameObject.layer == 7) { 
+            if (hit && hit.collider != null && (hit.collider.gameObject.layer == 7 || hit.collider.gameObject.layer == 8))
+            {
                 GameObject gO = hit.collider.gameObject;
                 gO.GetComponent<Health>().Damage(weaponDamage);
             }
@@ -106,17 +107,19 @@ public class Weapon : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    void AimStop(CallbackContext ctx) 
+    void AimStop(CallbackContext ctx)
     {
         muzzleFlash.Stop();
         isAiming = false;
         gameObject.SetActive(false);
     }
 
-    IEnumerator BlinkLaser() 
+    IEnumerator BlinkLaser()
     {
         laserPointer.enabled = false;
         yield return new WaitForSeconds(0.3f);
         laserPointer.enabled = true;
     }
+
 }
+

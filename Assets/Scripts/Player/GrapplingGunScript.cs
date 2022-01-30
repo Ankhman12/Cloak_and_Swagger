@@ -10,7 +10,7 @@ public class GrapplingGunScript : MonoBehaviour
 
     [Header("Layers Settings:")]
     [SerializeField] private bool grappleToAll = false;
-    [SerializeField] private int grappableLayerNumber = 8;
+    [SerializeField] private int grappableLayerNumber = 9;
 
     [Header("Main Camera:")]
     public Camera m_camera;
@@ -35,6 +35,7 @@ public class GrapplingGunScript : MonoBehaviour
 
     public bool isHoldingGrapple;
     Controls controls;
+    bool isAiming;
 
     private enum LaunchType
     {
@@ -62,9 +63,14 @@ public class GrapplingGunScript : MonoBehaviour
 
         controls = new Controls();
         //Movement controls setup
-        controls.OperatorActionMap.Grapple.performed += GrappleStart;
-        controls.OperatorActionMap.Grapple.canceled += GrappleEnd;
-        controls.OperatorActionMap.Grapple.Enable();
+        controls.OperatorActionMap.Shoot.performed += GrappleStart;
+        controls.OperatorActionMap.Shoot.canceled += GrappleEnd;
+        controls.OperatorActionMap.Shoot.Enable();
+        //controls.OperatorActionMap.Aim.performed += AimStart;
+        //controls.OperatorActionMap.Aim.canceled += AimStop;
+        //controls.OperatorActionMap.Aim.Enable();
+
+        //gameObject.SetActive(true);
     }
 
     private void Update()
@@ -193,6 +199,18 @@ public class GrapplingGunScript : MonoBehaviour
         grappleRope.enabled = false;
         m_springJoint2D.enabled = false;
         m_rigidbody.gravityScale = 7;
+    }
+
+    void AimStart(CallbackContext ctx)
+    {
+        isAiming = true;
+        gameObject.SetActive(true);
+    }
+
+    void AimStop(CallbackContext ctx)
+    {
+        isAiming = false;
+        gameObject.SetActive(false);
     }
 
 }

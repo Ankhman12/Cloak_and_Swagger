@@ -10,26 +10,29 @@ public class Health : MonoBehaviour
     SpriteRenderer sr;
     IEnumerator coroutine;
 
-    public void Damage(int damage) {
+    public void Damage(int damage)
+    {
         //Damage VFX
         coroutine = BlinkSprite();
         StartCoroutine(coroutine);
         //Damage math
         health -= damage;
-        if (health <= 0) {
+        if (health <= 0)
+        {
             Die();
         }
     }
 
-    void Die() { 
+    void Die()
+    {
         //death VFX
         //...
         //Destroy game object
         Destroy(gameObject);
     }
 
-    IEnumerator BlinkSprite() 
-    { 
+    IEnumerator BlinkSprite()
+    {
         sr.color = Color.red;
         yield return new WaitForSeconds(.1f);
         sr.color = Color.white;
