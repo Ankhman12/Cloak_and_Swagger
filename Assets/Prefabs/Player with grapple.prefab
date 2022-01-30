@@ -638,7 +638,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grappleRope: {fileID: 7842249875651930778}
   grappleToAll: 0
-  grappableLayerNumber: 6
+  grappableLayerNumber: 8
   m_camera: {fileID: 0}
   gunHolder: {fileID: 7842249875550266506}
   gunPivot: {fileID: 7842249876152502867}
@@ -651,7 +651,7 @@ MonoBehaviour:
   rotateOverTime: 1
   rotationSpeed: 4
   hasMaxDistance: 1
-  maxDistnace: 39.7
+  maxDistnace: 38.99
   isHoldingGrapple: 0
   launchToPoint: 1
   launchType: 1

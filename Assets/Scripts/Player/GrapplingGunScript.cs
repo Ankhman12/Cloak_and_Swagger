@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
@@ -12,7 +10,7 @@ public class GrapplingGunScript : MonoBehaviour
 
     [Header("Layers Settings:")]
     [SerializeField] private bool grappleToAll = false;
-    [SerializeField] private int grappableLayerNumber = 9;
+    [SerializeField] private int grappableLayerNumber = 8;
 
     [Header("Main Camera:")]
     public Camera m_camera;
@@ -32,7 +30,7 @@ public class GrapplingGunScript : MonoBehaviour
     [Range(0, 60)] [SerializeField] private float rotationSpeed = 4;
 
     [Header("Distance:")]
-    [SerializeField] private bool hasMaxDistance = false;
+    [SerializeField] private bool hasMaxDistance = true;
     [SerializeField] private float maxDistnace = 20;
 
     public bool isHoldingGrapple;
