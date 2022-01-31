@@ -1,30 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Alarm : MonoBehaviour
 {
-    bool isAlarmSounding;
-    public float alarmRadius;
 
     public List<GuardAIBehavior> localGuards;
+    Light alarmLight; 
+    IEnumerator alarmCoroutine;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        isAlarmSounding = false;
+        alarmLight = GetComponentInChildren<Light>();
+        alarmLight.enabled = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (isAlarmSounding) { 
-            
+    public void TriggerAlarm() {
+        foreach (GuardAIBehavior g in localGuards)
+        {
+            g.HearAlarm(this.transform);
         }
-    }
+        alarmCoroutine = Flicker(); 
+        StartCoroutine(alarmCoroutine);
 
-    public void TriggerAlarm() { 
-        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -43,5 +42,15 @@ public class Alarm : MonoBehaviour
         }
     }
 
+    IEnumerator Flicker() 
+    { 
+        alarmLight.enabled = true;
+        yield return new WaitForSeconds(1f);
+        alarmLight.enabled = false;
+        yield return new WaitForSeconds(1f);
+        alarmLight.enabled = true;
+        yield return new WaitForSeconds(1f);
+        alarmLight.enabled = false;
+    }
 
 }

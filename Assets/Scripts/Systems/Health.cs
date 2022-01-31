@@ -27,6 +27,10 @@ public class Health : MonoBehaviour
     {
         //death VFX
         //...
+        if (this.gameObject.CompareTag("Player"))
+        {
+            GameManager.Instance.GameOver();
+        }
         //Destroy game object
         Destroy(gameObject);
     }

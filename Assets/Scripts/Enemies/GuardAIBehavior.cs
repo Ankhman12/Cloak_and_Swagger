@@ -193,7 +193,7 @@ public class GuardAIBehavior : MonoBehaviour
             case GuardBehaviorState.Alarm:
                 Debug.Log("Alarm");
                 atPatrolPoint = false;
-                if ((investigationTarget.x - this.transform.position.x) < patrolRadius) 
+                if (Mathf.Abs(destination.position.x - guardTransform.position.x) <= patrolRadius) 
                 {
                     currentMovementState = GuardMovementState.Walking;
                     currentBehaviorState = GuardBehaviorState.Searching;

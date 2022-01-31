@@ -124,7 +124,7 @@ public class GrapplingGunScript : MonoBehaviour
     void SetGrapplePoint()
     {
         Vector2 distanceVector = m_camera.ScreenToWorldPoint(Mouse.current.position.ReadValue()) - gunPivot.position;
-        if (Physics2D.Raycast(firePoint.position, distanceVector.normalized, Mathf.Infinity, ~playerLayer))
+        if (Physics2D.Raycast(firePoint.position, distanceVector.normalized, Mathf.Infinity, ~(playerLayer)))
         {
             RaycastHit2D _hit = Physics2D.Raycast(firePoint.position, distanceVector.normalized, Mathf.Infinity, ~(playerLayer));
             if (_hit.transform.gameObject.layer == grappableLayerNumber || grappleToAll)

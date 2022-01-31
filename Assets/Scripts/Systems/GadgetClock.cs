@@ -58,7 +58,7 @@ public class GadgetClock : MonoBehaviour
             else {
                 //Debug.Log("Tick!");
             }
-            Debug.Log(ticks);
+            //Debug.Log(ticks);
         }
 
         

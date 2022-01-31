@@ -7,6 +7,7 @@ public class SecurityCamera : MonoBehaviour
 
     public GameObject guardPrefab;
     public Alarm camAlarm;
+    public Transform stairwell;
 
     bool playerInVision = false;
 
@@ -23,11 +24,11 @@ public class SecurityCamera : MonoBehaviour
         this.transform.localRotation = Quaternion.Lerp(from, to, lerp);
 
         if (playerInVision) 
-        { 
+        {
             //trigger alarm
-
+            camAlarm.TriggerAlarm();
             //spawn guard
-
+            Instantiate(guardPrefab, stairwell);
         }
     }
 
@@ -37,7 +38,7 @@ public class SecurityCamera : MonoBehaviour
             bool isHiding = collision.GetComponent<PlayerMovement>().isHiding;
             bool isInvisible = collision.GetComponent<Invisibility>().getInvisible();
 
-            if (isHiding && isInvisible)
+            if (isHiding || isInvisible)
             {
                 playerInVision = false;
             }

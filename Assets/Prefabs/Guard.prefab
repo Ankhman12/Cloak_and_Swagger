@@ -77,7 +77,7 @@ GameObject:
   - component: {fileID: 3366679345965120556}
   m_Layer: 8
   m_Name: Guard
-  m_TagString: Untagged
+  m_TagString: Guard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -261,7 +261,7 @@ MonoBehaviour:
   guardController: {fileID: 3366679345965120545}
   firePoint: {fileID: 7475484211617233867}
   muzzleFlash: {fileID: 922456736738097505, guid: ab0f52679134aab428164510fbd36922, type: 3}
-  weaponDamage: 6
+  weaponDamage: 11
   weaponRange: 50
   attackDistRatio: 0.4
   fireRate: 0.5
@@ -269,7 +269,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   maxWaitTime: 2
-  patrolRadius: 1
+  patrolRadius: 2
   player: {fileID: 0}
   attackRange: 15
   chasingRange: 30
