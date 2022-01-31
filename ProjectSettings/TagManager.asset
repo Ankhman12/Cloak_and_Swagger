@@ -3,18 +3,23 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - hidingSpace
+  - Gun
+  - Goal
+  - Guard
+  - Platform
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - HidingSpace
   - Water
   - UI
   - Ground
-  - 
-  - 
-  - 
+  - Player
+  - Security
+  - GrapplePoint
   - 
   - 
   - 

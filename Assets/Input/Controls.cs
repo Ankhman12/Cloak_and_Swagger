@@ -62,6 +62,42 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""4c10a054-e08d-4e7d-b4eb-60f77e4714f5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Aim"",
+                    ""type"": ""Button"",
+                    ""id"": ""918b073f-a2ef-44c5-9731-6233d662f148"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""368cec2d-bf3e-4ba9-a01d-a4bd7db131f7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MousePos"",
+                    ""type"": ""Value"",
+                    ""id"": ""4145b85c-1958-452d-a1ba-fe3bd4ffbf91"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -141,6 +177,50 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""959638a9-dd0a-4b55-aaf3-f9dba0d20877"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""39371739-1a38-401e-bf4f-6b2d2b1d7587"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d377b971-4b64-48a4-80b9-bdc4fe28bf23"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a5910ff8-6636-480b-8dd1-01df1b582079"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MousePos"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -153,6 +233,10 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         m_OperatorActionMap_Crouch = m_OperatorActionMap.FindAction("Crouch", throwIfNotFound: true);
         m_OperatorActionMap_Sprint = m_OperatorActionMap.FindAction("Sprint", throwIfNotFound: true);
         m_OperatorActionMap_Movement = m_OperatorActionMap.FindAction("Movement", throwIfNotFound: true);
+        m_OperatorActionMap_Interact = m_OperatorActionMap.FindAction("Interact", throwIfNotFound: true);
+        m_OperatorActionMap_Aim = m_OperatorActionMap.FindAction("Aim", throwIfNotFound: true);
+        m_OperatorActionMap_Shoot = m_OperatorActionMap.FindAction("Shoot", throwIfNotFound: true);
+        m_OperatorActionMap_MousePos = m_OperatorActionMap.FindAction("MousePos", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -216,6 +300,10 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     private readonly InputAction m_OperatorActionMap_Crouch;
     private readonly InputAction m_OperatorActionMap_Sprint;
     private readonly InputAction m_OperatorActionMap_Movement;
+    private readonly InputAction m_OperatorActionMap_Interact;
+    private readonly InputAction m_OperatorActionMap_Aim;
+    private readonly InputAction m_OperatorActionMap_Shoot;
+    private readonly InputAction m_OperatorActionMap_MousePos;
     public struct OperatorActionMapActions
     {
         private @Controls m_Wrapper;
@@ -224,6 +312,10 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         public InputAction @Crouch => m_Wrapper.m_OperatorActionMap_Crouch;
         public InputAction @Sprint => m_Wrapper.m_OperatorActionMap_Sprint;
         public InputAction @Movement => m_Wrapper.m_OperatorActionMap_Movement;
+        public InputAction @Interact => m_Wrapper.m_OperatorActionMap_Interact;
+        public InputAction @Aim => m_Wrapper.m_OperatorActionMap_Aim;
+        public InputAction @Shoot => m_Wrapper.m_OperatorActionMap_Shoot;
+        public InputAction @MousePos => m_Wrapper.m_OperatorActionMap_MousePos;
         public InputActionMap Get() { return m_Wrapper.m_OperatorActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -245,6 +337,18 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Movement.started -= m_Wrapper.m_OperatorActionMapActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_OperatorActionMapActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_OperatorActionMapActionsCallbackInterface.OnMovement;
+                @Interact.started -= m_Wrapper.m_OperatorActionMapActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_OperatorActionMapActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_OperatorActionMapActionsCallbackInterface.OnInteract;
+                @Aim.started -= m_Wrapper.m_OperatorActionMapActionsCallbackInterface.OnAim;
+                @Aim.performed -= m_Wrapper.m_OperatorActionMapActionsCallbackInterface.OnAim;
+                @Aim.canceled -= m_Wrapper.m_OperatorActionMapActionsCallbackInterface.OnAim;
+                @Shoot.started -= m_Wrapper.m_OperatorActionMapActionsCallbackInterface.OnShoot;
+                @Shoot.performed -= m_Wrapper.m_OperatorActionMapActionsCallbackInterface.OnShoot;
+                @Shoot.canceled -= m_Wrapper.m_OperatorActionMapActionsCallbackInterface.OnShoot;
+                @MousePos.started -= m_Wrapper.m_OperatorActionMapActionsCallbackInterface.OnMousePos;
+                @MousePos.performed -= m_Wrapper.m_OperatorActionMapActionsCallbackInterface.OnMousePos;
+                @MousePos.canceled -= m_Wrapper.m_OperatorActionMapActionsCallbackInterface.OnMousePos;
             }
             m_Wrapper.m_OperatorActionMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -261,6 +365,18 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
+                @Aim.started += instance.OnAim;
+                @Aim.performed += instance.OnAim;
+                @Aim.canceled += instance.OnAim;
+                @Shoot.started += instance.OnShoot;
+                @Shoot.performed += instance.OnShoot;
+                @Shoot.canceled += instance.OnShoot;
+                @MousePos.started += instance.OnMousePos;
+                @MousePos.performed += instance.OnMousePos;
+                @MousePos.canceled += instance.OnMousePos;
             }
         }
     }
@@ -271,5 +387,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         void OnCrouch(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
+        void OnAim(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
+        void OnMousePos(InputAction.CallbackContext context);
     }
 }

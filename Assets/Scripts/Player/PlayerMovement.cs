@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     float doubleTapTimer = 0f;
     [SerializeField] float crouchTapTime = 0.1f;
     public string platformTag;
+    public bool isHiding;
 
     private void Start()
     {
@@ -47,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
         controls.OperatorActionMap.Sprint.performed += SprintStart;
         controls.OperatorActionMap.Sprint.canceled += SprintEnd;
         controls.OperatorActionMap.Sprint.Enable();
+        //interact controls setup
     }
 
 
@@ -102,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
             wasJumping = true;
         }
         //Move character
-        controller.Move(movement.x * Time.fixedDeltaTime, isCrouching, isSprinting, isHoldingJump, wasJumping);
+        controller.Move(movement.x * Time.fixedDeltaTime, isCrouching, isSprinting, isHoldingJump, wasJumping, isHiding);
 
 
 
